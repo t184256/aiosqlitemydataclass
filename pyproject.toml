@@ -1,0 +1,61 @@
+[project]
+name = "aiosqlitemydataclass"
+version = "0.0.1"
+authors = [
+  { name="Alexander Sosedkin", email="monk@unboiled.info" },
+]
+description = "Store dataclasses in SQLite. async."
+urls.homepage = "https://github.com/t184256/aiosqlitemydataclass"
+readme = "README.md"
+license = {file = "LICENSE"}
+classifiers = [
+  "Programming Language :: Python :: 3",
+  "License :: OSI Approved :: GNU General Public License v3 (GPLv3)"
+]
+requires-python = ">=3.11"
+dependencies = [
+  "aiosqlite"
+]
+optional-dependencies.test = [
+  "pytest",
+  "coverage", "pytest-cov",
+  "mypy", "pytest-mypy",
+  "yapf",
+  "ruff",
+]
+
+[tool.pytest.ini_options]
+addopts = "--mypy --cov --cov-report term-missing --doctest-modules"
+
+[tool.coverage]
+run.source = [ "aiosqlitemydataclass" ]
+run.branch = true
+report.exclude_lines = [
+  "# pragma: no cover",
+  "if __name__ == .__main__.:",
+  "if typing.TYPE_CHECKING:",
+]
+report.fail_under = 100
+
+[tool.mypy]
+strict = true
+
+[tool.yapf]
+BLANK_LINE_BEFORE_MODULE_DOCSTRING = true
+
+[tool.ruff]
+line-length = 79
+select = [ "ALL" ]
+ignore = [
+  "D105",  # undocumented-magic-method
+  "D203",  # one-blank-line-before-class
+  "D213",  # multi-line-summary-second-line
+  "ANN101",  # missing-type-self
+  "S101",  # assert
+]
+per-file-ignores."tests/**" = [
+  "INP001",  # implicit-namespace-package
+  "S101",  # assert
+]
+flake8-quotes.inline-quotes = "single"
+flake8-quotes.multiline-quotes = "single"
